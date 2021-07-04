@@ -1,0 +1,39 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class=" col-xlg-9 col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        Продукт<strong>{{ object.category.name|title }} /
+                        {{ object.name|title }}</strong>
+                    </div>
+                    <img src="/media/{{ object.image|default:'products_images/default.jpg' }}"
+                         alt="{{ object.name }}">
+                    <div class="summary">
+                        <b>цена</b>
+                        <p>{{ object.price }} руб</p>
+                        <b>количество</b>
+                        <p>{{ object.quantity }}</p>
+                        <b>в каталоге</b>
+                        <p>{% if object.is_delete %}нет{% else %}да{% endif %}</p>
+                        <p>
+                            <button>
+                                <a href="{% url 'admin_staff:product_update' object.pk %}">
+                                редактировать
+                                </a>
+                            </button>
+                            <button>
+                                <a href="{% url 'admin_staff:products' object.category.pk %}">К списку товаров</a>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

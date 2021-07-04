@@ -1,0 +1,38 @@
+[
+  {
+    "category": 1,
+    "name": "Стулл фамильный",
+    "image": "products_images/product-4.jpg",
+    "short_desc": "стул фамильный",
+    "description": "",
+    "price": "1000.00",
+    "quantity": 10
+  },
+  {
+    "category": 2,
+    "name": "Лампа",
+    "image": "products_images/product-1.jpg",
+    "short_desc": "лампа строгая",
+    "description": "",
+    "price": "150.00",
+    "quantity": 5
+  },
+  {
+    "category": 4,
+    "name": "Чайник",
+    "image": "products_images/product-3.jpg",
+    "short_desc": "чайник классический",
+    "description": "",
+    "price": "600.00",
+    "quantity": 4
+  },
+  {
+    "category": 3,
+    "name": "Часы",
+    "image": "products_images/product-4-sm.jpg",
+    "short_desc": "часы ультрамодные",
+    "description": "",
+    "price": "0.00",
+    "quantity": 0
+  }
+]

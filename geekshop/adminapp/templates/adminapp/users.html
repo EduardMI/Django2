@@ -1,0 +1,87 @@
+{% extends "adminapp/base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                          <h4 class="card-title">Пользователи</h4>
+                        <div class="table-responsive">
+                            <table class="table table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th class="border-top-0">#</th>
+                                        <th class="border-top-0">Имя пользователя</th>
+                                        <th class="border-top-0">Имя</th>
+                                        <th class="border-top-0">Фамилия</th>
+                                        <th class="border-top-0">Email</th>
+                                        <th class="border-top-0">Персонал сайта</th>
+                                        <th class="border-top-0">Активный</th>
+                                        <th class="border-top-0">Удалить</th>
+                                        <th class="border-top-0">Удаленный</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th class="border-top-0">#</th>
+                                        <th class="border-top-0">Имя пользователя</th>
+                                        <th class="border-top-0">Имя</th>
+                                        <th class="border-top-0">Фамилия</th>
+                                        <th class="border-top-0">Email</th>
+                                        <th class="border-top-0">Персонал сайта</th>
+                                        <th class="border-top-0">Активный</th>
+                                        <th class="border-top-0">Удалить</th>
+                                        <th class="border-top-0">Удаленный</th>
+                                    </tr>
+                                </tfoot>
+
+                                <tbody>
+                                    {% for user in objects %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td><a href="{% url 'admin_staff:user_update' user.pk %}"
+                                               style="color: dodgerblue">{{ user.username }}</a></td>
+                                        <td>{{ user.first_name }}</td>
+                                        <td>{{ user.last_name }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>
+                                        {% if user.is_staff %}
+                                            <i class="fa fa-check-circle"></i>
+                                        {% else %}
+                                            <i class="fa fa-times-circle"></i>
+                                        {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if user.is_active %}
+                                                <i class="fa fa-check-circle"></i>
+                                            {% else %}
+                                                <i class="fa fa-times-circle"></i>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'admin_staff:user_delete' user.pk %}">Удалить</a>
+                                        </td>
+                                        <td>
+                                            {% if user.is_delete %}да{% else %}нет{% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                <a href="{% url 'adminapp:user_create' %}">
+                    <button class="btn btn-outline-secondary">Создать пользователя</button>
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

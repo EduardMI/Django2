@@ -1,0 +1,35 @@
+<aside class="left-sidebar" data-sidebarbg="skin6">
+    <div class="scroll-sidebar">
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <!-- User Profile-->
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{% url 'admin_staff:users' %}" aria-expanded="false">
+                        <i class="mdi me-2 mdi-table"></i>
+                        <span class="hide-menu">Пользователи</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{% url 'admin_staff:categories' %}" aria-expanded="false">
+                        <i class="mdi me-2 mdi-table"></i>
+                        <span class="hide-menu">Категории продуктов</span>
+                    </a>
+                </li>
+                <li class="text-center p-20 upgrade-btn">
+                    <a href="{% url 'main' %}" class="btn btn-warning text-white mt-4">На главную</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- End Sidebar scroll-->
+    <div class="sidebar-footer">
+        <div class="row">
+            <div class="col link-wrap ">
+                <button type="button" class="btn btn-outline-secondary center-block">
+                    <a href="{% url 'auth:logout' %}">Выход</a></button>
+            </div>
+        </div>
+    </div>
+ </aside>

@@ -1,0 +1,46 @@
+{% extends "geekshop/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="hero-white">
+        {% include 'geekshop/includes/inc_main_menu.html' %}
+    </div>
+
+    {% include 'geekshop/includes/inc_links_menu.html' %}
+    <div class="title clearfix">
+        <h2>
+          Категория: "{{ category.name|title }}"
+        </h2>
+
+    </div>
+    <div class="tab-content clearfix">
+        {% for product in products %}
+            <div class="block">
+                <a href="{% url 'products:product' product.pk %}">
+                    <img src="/media/{{ product.image }}" alt="{{ product.short_desc }}" class="preview">
+                    <div class="text">
+                        <img src="{% static 'img/icon-hover.png' %}" alt="hover">
+                        <h4>{{ product.name }}</h4>
+                        <p>{{ product.short_desc }} </p>
+                        </div>
+
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+    <div class="paginator">
+         {% if products.has_previous %}
+            <a href="{% url 'products:page' category.pk products.previous_page_number %}"><</a>
+         {% endif %}
+         <span class="current">
+            страница {{ products.number }} из
+            {{ products.paginator.num_pages }}
+         </span>
+         {% if products.has_next %}
+            <a href="{% url 'products:page' category.pk products.next_page_number %}">></a>
+         {% endif %}
+    </div>
+{% endblock %}
