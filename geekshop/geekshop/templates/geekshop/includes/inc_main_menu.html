@@ -1,3 +1,4 @@
+{% load static %}
 <div class="header clearfix">
     <a href="{% url 'main' %}" class="logo"></a>
     <ul class="menu">
@@ -39,12 +40,8 @@
 
     <a href="#" class="search"></a>
     {% if basket and request.path != '/basket/' %}
-    <a href="{% url 'basket:view' %}" class="fa fa-shopping-basket basket">
-    <span>
-        {{ basket.0.total_cost|floatformat:0 }} руб
-        ({{ basket.0.total_quantity }} шт)
-    </span>
+    <a href="{% url 'basket:view' %}" class="basket">
+        <img src="{% static 'img/basket.png' %}" alt="">
     </a>
     {% endif %}
-
 </div>
