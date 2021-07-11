@@ -19,4 +19,10 @@
     </form>
     <button class="btn form-control"><a href="{% url 'main' %}">На главную</a></button>
     <button class="btn form-control"><a href="{% url 'auth:register' %}">Регистрация</a></button>
+    <button class="btn btn-round form-control">
+        <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/">
+         Вход через ВКонтакте
+        </a>
+    </button>
+
 {% endblock %}
