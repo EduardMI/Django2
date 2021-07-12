@@ -10,7 +10,7 @@ class ShopUser(AbstractUser):
     avatar = models.ImageField(
         upload_to='user_avatars',
         blank=True,
-        default='default.png'
+        default='user_avatars/default.png'
     )
 
     age = models.PositiveIntegerField(verbose_name='возраст', default=18)
