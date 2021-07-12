@@ -12,6 +12,8 @@ html, body {
 	height: 100%;
 }
 
+a {text-decoration: none;}
+
 .clr {
 	height: 384px;
 }
@@ -1044,6 +1046,10 @@ td:first-child {
 .related-products .block a img {
 	float: left;
 }
+.block-img {
+	weight: 370px;
+	height: 370px;
+}
 .related-products .block {
 	float: left;
 	margin-right: 30px;
@@ -1086,4 +1092,23 @@ td:first-child {
 }
 .related-products a:hover .text{
 	display: block;
+}
+
+.menu .dropdown-toggle {
+	background: none;
+	border: none;
+	color: #8c8c8c;
+	padding: 0 13px 10px;
+	font-weight: bold;
+	outline: none;
+}
+
+.menu .dropdown-toggle.show {
+	border: none;
+	box-shadow: none;
+}
+
+.menu .dropdown-item, .menu .dropdown-item:hover {
+	border: none;
+	background: none;
 }
