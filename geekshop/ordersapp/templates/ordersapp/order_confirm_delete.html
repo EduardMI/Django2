@@ -8,9 +8,9 @@
        <form action="{% url 'ordersapp:order_delete' object.pk %}" method="post">
            {% csrf_token %}
            <input class="btn btn-danger" type="submit" value="удалить">
-       </form>
-       <button class="btn btn-success">
+           <button class="btn btn-light">
            <a href="{% url 'ordersapp:orders_list' %}">отмена</a>
-       </button>
+           </button>
+       </form>
    </div>
 {% endblock %}
