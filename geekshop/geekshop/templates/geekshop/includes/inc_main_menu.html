@@ -1,3 +1,4 @@
+{% load static %}
 <div class="header clearfix">
     <a href="{% url 'main' %}" class="logo"></a>
     <ul class="menu">
@@ -14,14 +15,17 @@
         </li>
         {% if user.is_authenticated %}
         <li>
-            <a href="{% url 'auth:edit' %}">
-                {{ user.first_name|default:'Пользователь' }}
-            </a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ user.first_name|default:'Пользователь' }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="{% url 'auth:edit' %}">профиль</a></li>
+                    <li><a class="dropdown-item" href="{% url 'ordersapp:orders_list' %}">заказы</a></li>
+                </ul>
+            </div>
         </li>
-        {% else %}
-            <li>
-                <a href="{% url 'auth:register' %}">регистрация</a>
-            </li>
         {% endif %}
         {% if user.is_superuser %}
         <li>
@@ -39,12 +43,8 @@
 
     <a href="#" class="search"></a>
     {% if basket and request.path != '/basket/' %}
-    <a href="{% url 'basket:view' %}" class="fa fa-shopping-basket basket">
-    <span>
-        {{ basket.0.total_cost|floatformat:0 }} руб
-        ({{ basket.0.total_quantity }} шт)
-    </span>
+    <a href="{% url 'basket:view' %}" class="basket">
+        <img src="{% static 'img/basket.png' %}" alt="">
     </a>
     {% endif %}
-
 </div>
