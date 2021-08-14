@@ -5,7 +5,8 @@ from mainapp.models import Product
 
 def index(request):
     title = 'geekshop'
-    products = Product.objects.all()[:3]
+    # products = Product.objects.all()[:3]
+    products = Product.objects.filter(is_delete=False, category__is_delete=False).select_related('category')[:3]
 
     # basket = []
     # if request.user.is_authenticated:
