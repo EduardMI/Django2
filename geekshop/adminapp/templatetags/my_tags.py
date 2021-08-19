@@ -19,10 +19,10 @@ def media_folder_products(string):
 def media_folder_users(string):
     """
     Автоматически добавляет относительный URL-путь к медиафайлам пользователей
-    users_avatars/user1.jpg --> /media/users_avatars/user1.jpg
+    user_avatars/user1.jpg --> /media/user_avatars/user1.jpg
     """
     if not string:
-        string = 'users_avatars/default.png'
+        string = 'user_avatars/default.png'
 
     return f'{settings.MEDIA_URL}{string}'
 
