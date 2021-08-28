@@ -4,7 +4,7 @@
 {% block content %}
     <div class="h2 text-center head">
           Редактирование профиля
-        <div class="user_avatar"><img src="/media/{{ user.avatar }}"></div>
+        <div class="user_avatar"><img src="/media/{{ user.avatar|default:'user_avatars/default.png' }}"></div>
      </div>
 
     <form class="form-horizontal" action="{% url 'auth:edit' %}" method="post" enctype="multipart/form-data">

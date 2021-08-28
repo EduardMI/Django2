@@ -45,6 +45,8 @@
     {% if basket and request.path != '/basket/' %}
     <a href="{% url 'basket:view' %}" class="basket">
         <img src="{% static 'img/basket.png' %}" alt="">
+        <span>({{ basket.0.total_quantity }} шт)</span>
     </a>
+
     {% endif %}
 </div>
