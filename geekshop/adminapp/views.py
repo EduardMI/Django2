@@ -416,6 +416,7 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
 #
 #     return render(request, 'adminapp/product_delete.html', context=context)
 
+
 def db_profile_by_type(prefix, type, queries):
     update_queries = list(filter(lambda x: type in x['sql'], queries))
     print(f'db_profile {type} for {prefix}:')
@@ -429,5 +430,6 @@ def product_is_active_update_productcategory_save(sender, instance, **kwargs):
             instance.product_set.update(is_active=True)
         else:
             instance.product_set.update(is_active=False)
+
 
         db_profile_by_type(sender, 'UPDATE', connection.queries)
