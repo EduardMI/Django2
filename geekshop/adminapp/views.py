@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
@@ -7,6 +8,9 @@ from authapp.models import ShopUser
 from mainapp.models import Product, ProductCategory
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from django.db import connection
 
 
 class UserListView(LoginRequiredMixin, ListView):
@@ -173,6 +177,20 @@ class ProductCategoryUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'adminapp/category_update.html'
     success_url = reverse_lazy('admin_staff:categories')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'категории/редактирование'
+        return context
+
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(price=F('price') * (1 - discount / 100))
+                db_profile_by_type(self.__class__, 'UPDATE', connection.queries)
+
+        return super().form_valid(form)
+
 
 # @user_passes_test(lambda u: u.is_superuser)
 # def category_update(request, pk):
@@ -245,6 +263,7 @@ class ProductsListView(LoginRequiredMixin, ListView):
         context.update({'category': category})
 
         return context
+
 
 # @user_passes_test(lambda u: u.is_superuser)
 # def products(request, pk):
@@ -378,6 +397,7 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
 
         return HttpResponseRedirect(self.get_success_url())
 
+
 # @user_passes_test(lambda u: u.is_superuser)
 # def product_delete(request, pk):
 #     title = 'продукт/удаление'
@@ -395,3 +415,19 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
 #     }
 #
 #     return render(request, 'adminapp/product_delete.html', context=context)
+
+def db_profile_by_type(prefix, type, queries):
+    update_queries = list(filter(lambda x: type in x['sql'], queries))
+    print(f'db_profile {type} for {prefix}:')
+    [print(query['sql']) for query in update_queries]
+
+
+@receiver(pre_save, sender=ProductCategory)
+def product_is_active_update_productcategory_save(sender, instance, **kwargs):
+    if instance.pk:
+        if instance.is_active:
+            instance.product_set.update(is_active=True)
+        else:
+            instance.product_set.update(is_active=False)
+
+        db_profile_by_type(sender, 'UPDATE', connection.queries)
