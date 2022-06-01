@@ -12,6 +12,7 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.db import connection
 
+
 class UserListView(LoginRequiredMixin, ListView):
     model = ShopUser
     template_name = 'adminapp/users.html'
@@ -263,6 +264,7 @@ class ProductsListView(LoginRequiredMixin, ListView):
 
         return context
 
+
 # @user_passes_test(lambda u: u.is_superuser)
 # def products(request, pk):
 #     title = 'админка/продукт'
@@ -395,6 +397,7 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
 
         return HttpResponseRedirect(self.get_success_url())
 
+
 # @user_passes_test(lambda u: u.is_superuser)
 # def product_delete(request, pk):
 #     title = 'продукт/удаление'
@@ -423,9 +426,10 @@ def db_profile_by_type(prefix, type, queries):
 @receiver(pre_save, sender=ProductCategory)
 def product_is_active_update_productcategory_save(sender, instance, **kwargs):
     if instance.pk:
-        if instance.is_delete:
-            instance.product_set.update(is_delete=False)
+        if instance.is_active:
+            instance.product_set.update(is_active=True)
         else:
-            instance.product_set.update(is_delete=True)
+            instance.product_set.update(is_active=False)
+
 
         db_profile_by_type(sender, 'UPDATE', connection.queries)

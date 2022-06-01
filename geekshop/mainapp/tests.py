@@ -10,8 +10,6 @@ class TestMainappSmoke(TestCase):
         call_command('loaddata', 'test_db.json')
         self.client = Client()
 
-    def test_mainapp_urls(self):
-
         def test_mainapp_urls(self):
             response = self.client.get('/')
             self.assertEqual(response.status_code, 200)
